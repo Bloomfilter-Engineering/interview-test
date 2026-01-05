@@ -1,6 +1,6 @@
 import { MantineProvider } from '@mantine/core'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import '@mantine/core/styles.css'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import EmailSentPage from './pages/EmailSentPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import LoginPage from './pages/LoginPage'

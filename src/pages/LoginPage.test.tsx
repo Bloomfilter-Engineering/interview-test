@@ -1,19 +1,10 @@
 import { MantineProvider } from '@mantine/core'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { BrowserRouter } from 'react-router-dom'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { authService } from '../services/authService'
 import LoginPage from './LoginPage'
-
-// Wrapper component for tests
-function TestWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <MantineProvider>
-      <BrowserRouter>{children}</BrowserRouter>
-    </MantineProvider>
-  )
-}
 
 describe('LoginPage', () => {
   beforeEach(() => {
@@ -24,7 +15,19 @@ describe('LoginPage', () => {
   it('should successfully login with valid credentials', async () => {
     const user = userEvent.setup()
 
-    render(<LoginPage />, { wrapper: TestWrapper })
+    render(
+      <MantineProvider>
+        <MemoryRouter initialEntries={['/login']}>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/success"
+              element={<div data-testid="success-page">Success!</div>}
+            />
+          </Routes>
+        </MemoryRouter>
+      </MantineProvider>,
+    )
 
     // Find and fill in the form fields
     const emailInput = screen.getByTestId('email-input')
@@ -38,17 +41,24 @@ describe('LoginPage', () => {
     // Submit the form
     await user.click(loginButton)
 
-    // Wait for navigation - the component should navigate to /success
-    // In a real test environment, we would check the URL or use a mock router
+    // Wait for navigation to success page
     await waitFor(() => {
-      expect(screen.queryByTestId('error-message')).not.toBeInTheDocument()
+      expect(screen.getByTestId('success-page')).toBeInTheDocument()
     })
   })
 
   it('should display error message with invalid credentials', async () => {
     const user = userEvent.setup()
 
-    render(<LoginPage />, { wrapper: TestWrapper })
+    render(
+      <MantineProvider>
+        <MemoryRouter initialEntries={['/login']}>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+          </Routes>
+        </MemoryRouter>
+      </MantineProvider>,
+    )
 
     // Find and fill in the form fields
     const emailInput = screen.getByTestId('email-input')

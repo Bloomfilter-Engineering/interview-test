@@ -1,9 +1,13 @@
 export interface User {
   id: string
   email: string
-  password: string
   firstName: string
   lastName: string
+}
+
+// Internal type for storing user data with password (should not be exposed to clients)
+export interface UserRecord extends User {
+  password: string
 }
 
 export interface LoginCredentials {

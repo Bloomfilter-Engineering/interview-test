@@ -1,10 +1,15 @@
-import type { LoginCredentials, SignUpData, User } from '../types/user'
+import type {
+  LoginCredentials,
+  SignUpData,
+  User,
+  UserRecord,
+} from '../types/user'
 
-// In-memory user storage
-const users: Map<string, User> = new Map()
+// In-memory user storage (stores UserRecord with password)
+const users: Map<string, UserRecord> = new Map()
 
 // Predefined mock user
-const mockUser: User = {
+const mockUser: UserRecord = {
   id: '1',
   email: 'admin@bloomfilter.ai',
   password: 'Bloomfilter2026!',
@@ -56,17 +61,19 @@ export const authService = {
   login: async (
     credentials: LoginCredentials,
   ): Promise<{ success: boolean; user?: User; error?: string }> => {
-    const user = users.get(credentials.email)
+    const userRecord = users.get(credentials.email)
 
-    if (!user) {
+    if (!userRecord) {
       return { success: false, error: 'Invalid email or password' }
     }
 
-    if (user.password !== credentials.password) {
+    if (userRecord.password !== credentials.password) {
       return { success: false, error: 'Invalid email or password' }
     }
 
-    return { success: true, user: { ...user, password: '' } } // Don't return password
+    // Omit password from returned user
+    const { password: _, ...user } = userRecord
+    return { success: true, user }
   },
 
   /**
@@ -94,8 +101,8 @@ export const authService = {
       return { success: false, error: 'Passwords do not match' }
     }
 
-    // Create new user
-    const newUser: User = {
+    // Create new user record with password
+    const newUser: UserRecord = {
       id: Date.now().toString(),
       email: data.email,
       password: data.password,
@@ -134,10 +141,10 @@ export const authService = {
   },
 
   /**
-   * Get all users (for testing purposes)
+   * Get all users (for testing purposes) - passwords omitted
    */
   getAllUsers: (): User[] => {
-    return Array.from(users.values())
+    return Array.from(users.values()).map(({ password: _, ...user }) => user)
   },
 
   /**

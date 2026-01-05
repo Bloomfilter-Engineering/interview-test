@@ -9,7 +9,11 @@ export default defineConfig({
     linaria({
       include: ['**/*.{ts,tsx}'],
       babelOptions: {
-        presets: ['@babel/preset-typescript', '@babel/preset-react'],
+        presets: [
+          '@babel/preset-typescript',
+          ['@babel/preset-react', { runtime: 'automatic' }],
+          '@linaria/babel-preset',
+        ],
       },
     }),
   ],

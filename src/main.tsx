@@ -7,17 +7,32 @@ async function enableMocking() {
     return
   }
 
-  const { worker } = await import('./mocks/browser')
+  try {
+    const { worker } = await import('./mocks/browser')
 
-  // `worker.start()` returns a Promise that resolves
-  // once the Service Worker is up and ready to intercept requests.
-  return worker.start()
+    // `worker.start()` returns a Promise that resolves
+    // once the Service Worker is up and ready to intercept requests.
+    await worker.start()
+  } catch (error) {
+    console.error('Failed to initialize MSW:', error)
+    // Continue app bootstrap even if MSW fails
+  }
 }
 
-enableMocking().then(() => {
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <App />
-    </StrictMode>,
-  )
-})
+enableMocking()
+  .then(() => {
+    createRoot(document.getElementById('root')!).render(
+      <StrictMode>
+        <App />
+      </StrictMode>,
+    )
+  })
+  .catch((error) => {
+    console.error('Failed to start application:', error)
+    // Render the app anyway to provide user feedback
+    createRoot(document.getElementById('root')!).render(
+      <StrictMode>
+        <App />
+      </StrictMode>,
+    )
+  })

@@ -11,6 +11,7 @@ import {
 } from '@mantine/core'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { authService } from '../services/authService'
 import type { SignUpData } from '../types/user'
 
 const Container = styled.div`
@@ -95,16 +96,10 @@ function SignUpPage() {
         confirmPassword,
       }
 
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(signUpData),
-      })
+      const result = await authService.signUp(signUpData)
 
-      const data = await response.json()
-
-      if (!response.ok) {
-        setError(data.error || 'Sign up failed')
+      if (!result.success) {
+        setError(result.error || 'Sign up failed')
         setLoading(false)
         return
       }
