@@ -1,5 +1,6 @@
-import { styled } from '@linaria/react'
 import {
+  Anchor,
+  Box,
   Button,
   Paper,
   PasswordInput,
@@ -12,37 +13,20 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { LoginCredentials } from '../types/user'
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 20px;
-`
+const containerStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '100vh',
+  backgroundColor: '#f5f5f5',
+  padding: 20,
+}
 
-const StyledPaper = styled(Paper)`
-  padding: 32px;
-  width: 100%;
-  max-width: 400px;
-`
-
-const LinksContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-`
-
-const StyledLink = styled(Link)`
-  color: #228be6;
-  text-decoration: none;
-  font-size: 14px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`
+const paperStyle: React.CSSProperties = {
+  padding: 32,
+  width: '100%',
+  maxWidth: 400,
+}
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -80,8 +64,8 @@ function LoginPage() {
   }
 
   return (
-    <Container>
-      <StyledPaper shadow="md" radius="md">
+    <Box style={containerStyle}>
+      <Paper shadow="md" radius="md" style={paperStyle}>
         <Title order={2} mb="lg">
           Login
         </Title>
@@ -119,12 +103,16 @@ function LoginPage() {
             </Button>
           </Stack>
         </form>
-        <LinksContainer>
-          <StyledLink to="/forgot-password">Forgot your password?</StyledLink>
-          <StyledLink to="/signup">Don't have an account? Sign up</StyledLink>
-        </LinksContainer>
-      </StyledPaper>
-    </Container>
+        <Stack gap={8} mt={16}>
+          <Anchor component={Link} to="/forgot-password" size="sm" underline="hover">
+            Forgot your password?
+          </Anchor>
+          <Anchor component={Link} to="/signup" size="sm" underline="hover">
+            Don't have an account? Sign up
+          </Anchor>
+        </Stack>
+      </Paper>
+    </Box>
   )
 }
 

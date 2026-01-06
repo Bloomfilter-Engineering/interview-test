@@ -1,40 +1,22 @@
-import { styled } from '@linaria/react'
-import { Button, Paper, Stack, Text, TextInput, Title } from '@mantine/core'
+import { Anchor, Box, Button, Paper, Stack, Text, TextInput, Title } from '@mantine/core'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import type { ForgotPasswordData } from '../types/user'
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 20px;
-`
+const containerStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '100vh',
+  backgroundColor: '#f5f5f5',
+  padding: 20,
+}
 
-const StyledPaper = styled(Paper)`
-  padding: 32px;
-  width: 100%;
-  max-width: 400px;
-`
-
-const LinksContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-`
-
-const StyledLink = styled(Link)`
-  color: #228be6;
-  text-decoration: none;
-  font-size: 14px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`
+const paperStyle: React.CSSProperties = {
+  padding: 32,
+  width: '100%',
+  maxWidth: 400,
+}
 
 function ForgotPasswordPage() {
   const navigate = useNavigate()
@@ -71,8 +53,8 @@ function ForgotPasswordPage() {
   }
 
   return (
-    <Container>
-      <StyledPaper shadow="md" radius="md">
+    <Box style={containerStyle}>
+      <Paper shadow="md" radius="md" style={paperStyle}>
         <Title order={2} mb="lg">
           Forgot Password
         </Title>
@@ -106,11 +88,13 @@ function ForgotPasswordPage() {
             </Button>
           </Stack>
         </form>
-        <LinksContainer>
-          <StyledLink to="/login">Back to login</StyledLink>
-        </LinksContainer>
-      </StyledPaper>
-    </Container>
+        <Stack gap={8} mt={16}>
+          <Anchor component={Link} to="/login" size="sm" underline="hover">
+            Back to login
+          </Anchor>
+        </Stack>
+      </Paper>
+    </Box>
   )
 }
 

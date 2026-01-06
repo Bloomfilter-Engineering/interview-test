@@ -1,41 +1,40 @@
-import { styled } from '@linaria/react'
-import { Button, Paper, Stack, Text, Title } from '@mantine/core'
+import { Box, Button, Paper, Stack, Text, Title } from '@mantine/core'
 import { Link } from 'react-router-dom'
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 20px;
-`
+const containerStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '100vh',
+  backgroundColor: '#f5f5f5',
+  padding: 20,
+}
 
-const StyledPaper = styled(Paper)`
-  padding: 48px 32px;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-`
+const paperStyle: React.CSSProperties = {
+  padding: '48px 32px',
+  width: '100%',
+  maxWidth: 400,
+  textAlign: 'center',
+}
 
-const SuccessIcon = styled.div`
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 24px;
-  background-color: #51cf66;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  color: white;
-`
+const iconStyle: React.CSSProperties = {
+  width: 64,
+  height: 64,
+  margin: '0 auto 24px',
+  backgroundColor: '#51cf66',
+  borderRadius: '50%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: 36,
+  color: 'white',
+}
 
 function SuccessPage() {
   return (
-    <Container>
-      <StyledPaper shadow="md" radius="md" data-testid="success-page">
-        <SuccessIcon>✓</SuccessIcon>
+    <Box style={containerStyle}>
+      <Paper shadow="md" radius="md" data-testid="success-page" style={paperStyle}>
+        <Box style={iconStyle}>✓</Box>
         <Title order={2} mb="md">
           Success!
         </Title>
@@ -47,8 +46,8 @@ function SuccessPage() {
             Back to Login
           </Button>
         </Stack>
-      </StyledPaper>
-    </Container>
+      </Paper>
+    </Box>
   )
 }
 

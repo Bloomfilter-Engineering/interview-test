@@ -1,5 +1,6 @@
-import { styled } from '@linaria/react'
 import {
+  Anchor,
+  Box,
   Button,
   List,
   Paper,
@@ -14,44 +15,27 @@ import { Link, useNavigate } from 'react-router-dom'
 import { authService } from '../services/authService'
 import type { SignUpData } from '../types/user'
 
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  padding: 20px;
-`
+const containerStyle: React.CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '100vh',
+  backgroundColor: '#f5f5f5',
+  padding: 20,
+}
 
-const StyledPaper = styled(Paper)`
-  padding: 32px;
-  width: 100%;
-  max-width: 450px;
-`
+const paperStyle: React.CSSProperties = {
+  padding: 32,
+  width: '100%',
+  maxWidth: 450,
+}
 
-const LinksContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-`
-
-const StyledLink = styled(Link)`
-  color: #228be6;
-  text-decoration: none;
-  font-size: 14px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`
-
-const PasswordRequirements = styled.div`
-  margin-top: 8px;
-  padding: 12px;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-`
+const passwordRequirementsStyle: React.CSSProperties = {
+  marginTop: 8,
+  padding: 12,
+  backgroundColor: '#f8f9fa',
+  borderRadius: 4,
+}
 
 interface PasswordValidation {
   minLength: boolean
@@ -112,8 +96,8 @@ function SignUpPage() {
   }
 
   return (
-    <Container>
-      <StyledPaper shadow="md" radius="md">
+    <Box style={containerStyle}>
+      <Paper shadow="md" radius="md" style={paperStyle}>
         <Title order={2} mb="lg">
           Sign Up
         </Title>
@@ -155,7 +139,7 @@ function SignUpPage() {
                 data-testid="password-input"
               />
               {showRequirements && (
-                <PasswordRequirements>
+                <Box style={passwordRequirementsStyle}>
                   <Text size="sm" fw={500} mb={8}>
                     Password must contain:
                   </Text>
@@ -189,7 +173,7 @@ function SignUpPage() {
                       At least 1 special character
                     </List.Item>
                   </List>
-                </PasswordRequirements>
+                </Box>
               )}
             </div>
             <PasswordInput
@@ -215,11 +199,13 @@ function SignUpPage() {
             </Button>
           </Stack>
         </form>
-        <LinksContainer>
-          <StyledLink to="/login">Already have an account? Log in</StyledLink>
-        </LinksContainer>
-      </StyledPaper>
-    </Container>
+        <Stack gap={8} mt={16}>
+          <Anchor component={Link} to="/login" size="sm" underline="hover">
+            Already have an account? Log in
+          </Anchor>
+        </Stack>
+      </Paper>
+    </Box>
   )
 }
 
