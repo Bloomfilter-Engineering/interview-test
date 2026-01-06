@@ -1,0 +1,52 @@
+{
+  "name": "interview-test",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:e2e:playwright": "playwright test",
+    "test:e2e:cypress": "cypress open"
+  },
+  "dependencies": {
+    "@mantine/core": "^8.3.10",
+    "@mantine/hooks": "^8.3.10",
+    "@wyw-in-js/vite": "^0.8.1",
+    "linaria": "^6.3.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-router-dom": "^7.11.0"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
+    "@biomejs/biome": "^2.3.11",
+    "@playwright/test": "^1.57.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^25.0.3",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/ui": "^4.0.16",
+    "cypress": "^15.8.1",
+    "jsdom": "^27.4.0",
+    "msw": "^2.12.7",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3",
+    "vitest": "^4.0.16"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
+}
