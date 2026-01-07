@@ -90,6 +90,13 @@ pnpm test:e2e:cypress
 pnpm exec cypress run
 ```
 
+If Cypress says the executable is missing (e.g. `Cypress.app` not found), it usually means the **Cypress binary download** was skipped during install (often due to a global `pnpm` setting like `ignore-scripts=true`). Fix it with:
+
+```bash
+pnpm cypress:install
+pnpm cypress:verify
+```
+
 Note: Make sure the development server is running (`pnpm dev`) before running Cypress tests manually. Playwright will start the server automatically.
 
 ## Code Quality

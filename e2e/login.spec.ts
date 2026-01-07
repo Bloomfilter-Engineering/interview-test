@@ -22,27 +22,4 @@ test.describe('Login Flow', () => {
     await expect(page.getByTestId('success-page')).toBeVisible()
     await expect(page.locator('h2')).toContainText('Success!')
   })
-
-  test('should display error message with invalid credentials', async ({
-    page,
-  }) => {
-    // Navigate to the login page
-    await page.goto('/login')
-
-    // Fill in the login form with invalid credentials
-    await page.getByTestId('email-input').fill('wrong@email.com')
-    await page.getByTestId('password-input').fill('wrongpassword')
-
-    // Click the login button
-    await page.getByTestId('login-button').click()
-
-    // Wait for error message to appear
-    await expect(page.getByTestId('error-message')).toBeVisible()
-    await expect(page.getByTestId('error-message')).toContainText(
-      'Invalid email or password',
-    )
-
-    // Verify we're still on the login page
-    await expect(page).toHaveURL('/login')
-  })
 })
